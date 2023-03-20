@@ -11,24 +11,31 @@
 #  updated_at :datetime         not null
 #
 class Actor < ApplicationRecord
-  def characters
-    key = self.id
 
-    the_many = Character.where({ :actor_id => key })
+  
+  has_many(:characters)
+  
+  has_many(:filmography, { :class_name => "Character", :foreign_key => "actor_id"})
 
-    return the_many
-  end
 
-  def filmography
-    the_many = Array.new
+  # def characters
+  #   key = self.id
 
-    self.characters.each do |joining_record|
-      destination_record = joining_record.movie
+  #   the_many = Character.where({ :actor_id => key })
 
-      the_many.push(destination_record)
-    end
+  #   return the_many
+  # end
 
-    return the_many
-  end
+  # def filmography
+  #   the_many = Array.new
+
+  #   self.characters.each do |joining_record|
+  #     destination_record = joining_record.movie
+
+  #     the_many.push(destination_record)
+  #   end
+
+  #   return the_many
+  # end
 
 end
